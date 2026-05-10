@@ -623,6 +623,8 @@
             this.Controls.Add(this.BarraTitulo);
             this.Controls.Add(this.MenuVertical);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.ImeMode = System.Windows.Forms.ImeMode.On;
             this.Name = "MenuPrincipal";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.MenuPrincipal_Load);
