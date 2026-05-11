@@ -36,6 +36,9 @@
     <ApplicationIcon>iconoproyecto.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -50,6 +53,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Datos\ClienteDal.cs" />
+    <Compile Include="Datos\Conexion.cs" />
+    <Compile Include="Entidades\Cliente.cs" />
     <Compile Include="FormulariosMantenimientos\ClientesFormMant.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -183,9 +189,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Gemini_Generated_Image_mt8crbmt8crbmt8c-_1_.ico" />
-    <Content Include="icono.ico" />
+    <Content Include="BaseDatos\Procedimientos.sql" />
+    <Content Include="BaseDatos\Script.sql" />
+    <Content Include="BaseDatos\Vistas.sql" />
     <Content Include="iconoproyecto.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

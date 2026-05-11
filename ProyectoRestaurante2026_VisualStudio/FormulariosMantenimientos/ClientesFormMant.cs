@@ -1,10 +1,12 @@
-﻿using System;
+﻿using ProyectoRestaurante2026_VisualStudio.Entidades;
+using ProyectoRestaurante2026_VisualStudio.Datos;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Runtime.InteropServices;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,6 +15,9 @@ namespace ProyectoRestaurante2026_VisualStudio.FormulariosMantenimientos
 {
     public partial class ClientesFormMant : Form
     {
+
+        public bool Editar = false;
+        public int idCliente;
         public ClientesFormMant()
         {
             InitializeComponent();
@@ -126,8 +131,95 @@ namespace ProyectoRestaurante2026_VisualStudio.FormulariosMantenimientos
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
+            this.DialogResult = DialogResult.Cancel;
+
             this.Close();
+        
+        }
+
+        private void btnGuardar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // VALIDACIONES
+
+                if (txtDni.Text.Trim() == "")
+                {
+                    MessageBox.Show("Ingrese el DNI");
+                    txtDni.Focus();
+                    return;
+                }
+
+                if (!txtDni.Text.All(char.IsDigit))
+                {
+                    MessageBox.Show("El DNI solo debe contener números");
+                    txtDni.Focus();
+                    return;
+                }
+
+                if (txtDni.Text.Length != 8)
+                {
+                    MessageBox.Show("El DNI debe tener 8 dígitos");
+                    txtDni.Focus();
+                    return;
+                }
+
+                if (txtNombres.Text.Trim() == "")
+                {
+                    MessageBox.Show("Ingrese los nombres");
+                    txtNombres.Focus();
+                    return;
+                }
+
+                if (txtApellidos.Text.Trim() == "")
+                {
+                    MessageBox.Show("Ingrese los apellidos");
+                    txtApellidos.Focus();
+                    return;
+                }
+
+                // OBJETO
+                Cliente c = new Cliente();
+
+                c.id_cliente = idCliente;
+                c.dni_cliente = txtDni.Text;
+                c.nombre_cliente = txtNombres.Text;
+                c.apellido_cliente = txtApellidos.Text;
+                c.correo_cliente = txtCorreo.Text;
+                c.telefono_cliente = txtTelefono.Text;
+                c.observacion_cliente = txtObservacion.Text;
+
+                ClienteDal dao = new ClienteDal();
+
+                string respuesta = "";
+
+                // INSERTAR
+                if (Editar == false)
+                {
+                    respuesta = dao.InsertarCliente(c);
+                }
+                // ACTUALIZAR
+                else
+                {
+                    respuesta = dao.ActualizarCliente(c);
+                }
+
+                MessageBox.Show(
+                    respuesta,
+                    "Sistema",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+
+                this.DialogResult = DialogResult.OK;
+
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
-    }
-    
+}
+
+
